@@ -30,6 +30,9 @@ block content %}
           <label>{{ movie.rating }}</label>
           <i class="fas fa-star star"></i>
         </div>
+        {% if user and current_user.username == user.username %}
+        <p class="overview">{{ movie.review }}</p>
+        {% endif %}
         <p class="overview">{{ movie.description }}</p>
         {% if user and current_user.username == user.username %}
               <a href="{{ url_for('edit', id=movie.id) }}" class="me-2">Update</a>

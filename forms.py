@@ -1,11 +1,11 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FloatField
-from wtforms.validators import DataRequired, NumberRange
+from wtforms.validators import DataRequired, NumberRange, Length
 
 
 class EditRatingForm(FlaskForm):
     rating = FloatField(label="Your Rating from 0 (worst) to 10 (best)", validators=[DataRequired(), NumberRange(min=0, max=10)])
-    review = StringField(label="Your Review", validators=[DataRequired()])
+    review = StringField(label="Your Review", validators=[DataRequired(), Length(min=1, max=50)])
     submit = SubmitField(label="Done")
 
 
