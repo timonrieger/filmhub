@@ -109,15 +109,18 @@ def logout():
 @login_required
 def edit():
     id = request.args.get("id")
-    edit_rating_form = EditRatingForm()
+    form = EditRatingForm()
     edit_movie = TopMovies.query.filter_by(id=id).first()
-    if edit_rating_form.validate_on_submit():
-        edit_movie.rating = edit_rating_form.rating.data
-        edit_movie.review = edit_rating_form.review.data
+    if form.validate_on_submit():
+        edit_movie.rating = form.rating.data
+        edit_movie.review = form.review.data
         db.session.commit()
         return redirect(url_for("user", username=current_user.username))
-
-    return render_template("edit.html", form=edit_rating_form, id=id)
+    movie = TopMovies.query.filter_by(id=id).first()
+    if movie:
+        form = EditRatingForm(rating=movie.rating, review=movie.review)
+        return render_template("edit.html", form=form, id=id, movie_name=movie.title)
+    return render_template("edit.html", form=form, id=id, movie_name=movie.title)
 
 
 @app.route("/delete")

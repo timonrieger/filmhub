@@ -1,7 +1,11 @@
 {% extends 'base.html' %} {% from 'bootstrap5/form.html' import render_form %}
 {% block title %}Filmhub - Edit Movie{% endblock %} {% block content %}
 <div class="container">
+  {% if movie_name %}
+  <h1 class="heading">Edit Movie Review for {{ movie_name }}</h1>
+  {% else %}
   <h1 class="heading">Add Movie Review</h1>
+  {% endif %}
   <p class="description">
     How do you rate this movie? What did you like or dislike about it?
   </p>

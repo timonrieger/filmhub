@@ -5,12 +5,12 @@ content %}
   <p class="description">
     Select the movie you want to add to your list. <br />
     Dont see your movie? <a href="{{ url_for('add') }}">Go back!</a>
+    <br /> {{ movies['total_results'] }} movies found.
   </p>
   {% for movie in movies %}
   <p>
     <a href="{{ url_for('movie_details', id=movie['id']) }}"
-      >{{ movie['title'] }} | {{ movie['release_date'] }}</a
-    >
+      >{{ movie['title'] }} | {{ movie['release_date'] }} | {{ movie['overview'][:150] }}{% if movie['overview']|length > 150 %}...{% endif %}</a>
   </p>
   {% endfor %}
 </div>
