@@ -31,7 +31,7 @@ block content %}
           <i class="fas fa-star star"></i>
         </div>
         {% if user and current_user.username == user.username %}
-        <p class="overview">{{ movie.review }}</p>
+        <p class="review">{{ movie.review }}</p>
         {% endif %}
         <p class="overview">{{ movie.description }}</p>
         {% if user and current_user.username == user.username %}
