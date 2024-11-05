@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% from 'bootstrap5/form.html' import render_form %}
+{% block title %}Edit Movies{% endblock %} {% block content %}
+<div class="container">
+  <h1 class="heading">Add Movie Review</h1>
+  <p class="description">
+    How do you rate this movie? What did you like or dislike about it?
+  </p>
+  {{ render_form(form, action=url_for("edit", id=id), method="POST") }}
+</div>
+{% endblock %}

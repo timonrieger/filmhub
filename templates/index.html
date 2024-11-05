@@ -1,0 +1,44 @@
+{% extends 'base.html' %} {% block title %}My Top 10 Movies{% endblock %} {%
+block content %}
+<div class="container">
+  {% if user %}
+  <h1 class="heading">
+    Top 10 Movies by {{ user.username }} {% if current_user.username ==
+    user.username %} (You) {% endif %}
+  </h1>
+  <div class="container text-center add pb-4">
+    <a href="{{ url_for('add') }}" class="btn btn-primary btn-md">Add Movie</a>
+  </div>
+  {% else %}
+  <h1 class="heading">Alltime Favorite Movies</h1>
+  <p class="description">
+    This list represents the all-time favorite movies of all users. To create
+    and share your own list, register and start adding movies.
+  </p>
+  {% endif %} {% for movie in movies %}
+  <div class="card">
+    <div class="front" style="background-image: url({{ movie.img_url }})">
+      <p class="large">{{ movie.ranking }}</p>
+    </div>
+    <div class="back">
+      <div>
+        <div class="title">
+          {{ movie.title }}
+          <span class="release_date">( {{ movie.year }} )</span>
+        </div>
+        <div class="rating my-2">
+          <label>{{ movie.rating }}</label>
+          <i class="fas fa-star star"></i>
+        </div>
+        <p class="overview">{{ movie.description }}</p>
+        {% if user and current_user.username == user.username %}
+              <a href="{{ url_for('edit', id=movie.id) }}" class="me-2">Update</a>
+            <a href="{{ url_for('delete', id=movie.id) }}">Delete</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

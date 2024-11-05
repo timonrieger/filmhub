@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block title %}Select Movie{% endblock %} {% block
+content %}
+<div class="container">
+  <h1 class="heading">Select Movie</h1>
+  <p class="description">
+    Select the movie you want to add to your list. <br />
+    Dont see your movie? <a href="{{ url_for('add') }}">Go back!</a>
+  </p>
+  {% for movie in movies %}
+  <p>
+    <a href="{{ url_for('movie_details', id=movie['id']) }}"
+      >{{ movie['title'] }} | {{ movie['release_date'] }}</a
+    >
+  </p>
+  {% endfor %}
+</div>
+{% endblock %}
