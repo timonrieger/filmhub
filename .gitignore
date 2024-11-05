@@ -45,5 +45,3 @@ poetry.lock
 # System files
 .DS_Store
 Thumbs.db
-
-requirements.txt
