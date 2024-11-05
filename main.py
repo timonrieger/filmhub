@@ -54,7 +54,6 @@ def home():
 
 
 @app.route("/<username>")
-@login_required
 def user(username):
     user = User.query.filter_by(username=username).first()
     if not user:
