@@ -140,7 +140,6 @@ def add():
     if form.validate_on_submit():
         movie_title = form.title.data
         movie_list = requests.get(url=f"https://api.themoviedb.org/3/search/movie?query={movie_title}&api_key={THEMOVIEDB_KEY}").json()["results"]
-        app.logger.info(movie_list)
         return render_template("select.html", movies=movie_list)
 
     return render_template("add.html", form=form)
