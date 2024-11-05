@@ -34,7 +34,6 @@ p.overview {
 }
 .heading {
   width: 100%;
-  margin-left: 1rem;
   font-weight: 900;
   font-size: 1.618rem;
   text-transform: uppercase;
@@ -57,7 +56,6 @@ p.overview {
 .description {
   width: 100%;
   margin-top: 0;
-  margin-left: 1rem;
   margin-bottom: 3rem;
 }
 .card {
