@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% from 'bootstrap5/form.html' import render_form %}
-{% block title %}Register{% endblock %} {% block content %}
+{% block title %}Filmhub - Register{% endblock %} {% block content %}
 <div class="container">
   {{ render_form(form, action=url_for('register'), method="POST") }}
   <div class="text-start my-3">
