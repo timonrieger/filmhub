@@ -1,5 +1,5 @@
 {% extends 'base.html' %} 
-{% block title %}Filmhub - All-Time Favorite Movies {%if user %} by {{ user.username }}{% endif %}{% endblock %} 
+{% block title %}Filmhub - All-Time Favorite Movies {%if user %} by {{ user.username }}{% else %}{% endif %}{% endblock %} 
 {% block content %}
 <div class="container">
   {% if user %}
