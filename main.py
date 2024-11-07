@@ -72,7 +72,12 @@ def login():
         email = request.form["email"]
         password = request.form["password"]
         user = User.query.filter_by(email=email).first()
-        response = requests.post(url=f"{AUTH_URL}/login?email={email}&password={password}")
+        data = {
+            "email": email,
+            "password": password
+        }
+        app.logger.info(AUTH_URL)
+        response = requests.post(url=f"{AUTH_URL}/login", json=data)
         if response.status_code == 200:
             flash(response.json()['message'], "success")
             login_user(user)
@@ -88,7 +93,13 @@ def register():
         email = request.form["email"]
         password = request.form["password"]
         username = request.form["username"]
-        response = requests.post(url=f"{AUTH_URL}/register?email={email}&password={password}&username={username}&then=https://filmhub.timonrieger.de/login")
+        data = {
+            "email": email,
+            "password": password,
+            "username": username,
+            "then": "https://filmhub.timonrieger.de/login"
+        }
+        response = requests.post(f"{AUTH_URL}/register", json=data)
         flash(response.json()['message'], "success") if response.status_code == 200 else flash(response.json()['message'], "error")
         
     return render_template("register.html", form=form)
@@ -106,7 +117,11 @@ def reset():
     
     if form.validate_on_submit():
         email = form.email.data
-        response = requests.post(url=f"{AUTH_URL}/reset?email={email}&then=https://filmhub.timonrieger.de/login")
+        data = {
+            "email": email,
+            "then": "https://filmhub.timonrieger.de/login"
+        }
+        response = requests.post(url=f"{AUTH_URL}/reset", json=data)
         flash(response.json()['message'], "success") if response.status_code == 200 else flash(response.json()['message'], "error")
         
     return render_template("reset.html", form=form)
