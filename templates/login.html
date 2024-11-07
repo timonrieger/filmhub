@@ -1,9 +1,13 @@
 {% extends 'base.html' %} {% from 'bootstrap5/form.html' import render_form %}
 {% block title %}Filmhub - Login{% endblock %} {% block content %}
 <div class="container">
+  <h1 class="heading">Sign in to your account</h1>
   {{ render_form(form, action=url_for('login'), method="POST") }}
-  <div class="text-start my-3">
+  <div class="text-start mt-3">
     Don't have an account? <a href="{{ url_for('register') }}">Sign up</a>
+  </div>
+  <div class="text-start my-3">
+    Forgot your password?? <a href="{{ url_for('reset') }}">Reset</a>
   </div>
 </div>
 {% endblock %}

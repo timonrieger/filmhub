@@ -5,7 +5,7 @@ import os
 from database import db, create_all, User as UserModel, TopMovies
 from dotenv import load_dotenv
 from flask_login import UserMixin, login_user, LoginManager, current_user, logout_user, login_required
-from forms import EditRatingForm, AddMovieForm, LoginForm, RegistrationForm
+from forms import EditRatingForm, AddMovieForm, LoginForm, RegistrationForm, PasswordResetForm
 
 load_dotenv()
 
@@ -88,13 +88,9 @@ def register():
         email = request.form["email"]
         password = request.form["password"]
         username = request.form["username"]
-        response = requests.post(url=f"{AUTH_URL}/register?email={email}&password={password}&username={username}&then=https://filmhub.timonrieger.de/{username}")
-        if response.status_code == 200:
-            flash(response.json()['message'], "success")
-            user = User.query.filter_by(email=email).first()
-            login_user(user)
-            return redirect(url_for("user", username=current_user.username))
-        flash(response.json()['message'], "error")
+        response = requests.post(url=f"{AUTH_URL}/register?email={email}&password={password}&username={username}&then=https://filmhub.timonrieger.de/login")
+        flash(response.json()['message'], "success") if response.status_code == 200 else flash(response.json()['message'], "error")
+        
     return render_template("register.html", form=form)
 
 
@@ -102,6 +98,18 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for("home"))
+
+
+@app.route("/reset", methods=["GET", "POST"])
+def reset():
+    form = PasswordResetForm()
+    
+    if form.validate_on_submit():
+        email = form.email.data
+        response = requests.post(url=f"{AUTH_URL}/reset?email={email}&then=https://filmhub.timonrieger.de/login")
+        flash(response.json()['message'], "success") if response.status_code == 200 else flash(response.json()['message'], "error")
+        
+    return render_template("reset.html", form=form)
 
 
 @app.route("/edit", methods=["GET", "POST"])

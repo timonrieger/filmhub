@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% from 'bootstrap5/form.html' import render_form %}
+{% block title %}Filmhub - Login{% endblock %} {% block content %}
+<div class="container">
+    <h1 class="heading">Reset your password</h1>
+  <p class="description">
+    Use the email you signed up with. We'll send you an email with a link to reset your password.
+  </p>
+  {{ render_form(form, action=url_for('reset'), method="POST") }}
+</div>
+{% endblock %}
